@@ -3,69 +3,38 @@
 
 using namespace std;
 
-
-
 int main() {
-
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
 	cout.tie(NULL);
 
 	int t;
-	int k;
-	char arr[1001];
-	char tmp[1001][1001];
 
 	cin >> t;
 
-	for (int i = 0; i < t; i++) {
-		cin >> arr;
+	while(t--){
+		char s[1001];
+		int k;
 
-		for (int k = 0; k < 1001; k++) {
-			for (int j = 0; j < 1001; j++) {
-				tmp[k][j] = '%';
-			}
-		}
-
+		cin >> s;
 		cin >> k;
 
-		int cnt = 0;
-		int row = 0;
-		int col = 0;
+		for (int i = 0; i < k; i++) {
+			for (int j = 0; ; j += 2 * k) {
+				if (j + i >= strlen(s)) {
+					break;
+				}
 
-		for (int j = 0; j < strlen(arr); j++) {
-			
-			if(cnt == 0){//row increase
-				if (row == k - 1) {
-					tmp[row][col++] = arr[j];
-					cnt = 1;
-				}
-				else {
-					tmp[row++][col] = arr[j];
-				}
-			}else {//row decrease
-				if (row == 0) {
-					tmp[row][col++] = arr[j];
-					cnt = 0;
-				}
-				else {
-					tmp[row--][col] = arr[j];
-				}
-			}
-			
-		}
+				cout << s[j + i];
 
+				if (j + 2 * k - i - 1 >= strlen(s)) {
+					break;
+				}
 
-		for (int j = 0; j < k; j++) {
-			for (int t = 0; tmp[j][t] != '%'; t++) {
-				cout << tmp[j][t];
+				cout << s[j + 2 * k - i - 1];
 			}
 		}
-
-		if (i != t - 1) {
-			cout << "\n";
-		}
+		cout << "\n";
 	}
-
 	return 0;
 }
